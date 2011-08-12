@@ -20,8 +20,9 @@ Vagrant::Config.run do |config|
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
   #
-  # MYSQL PORT
-  config.vm.forward_port "http", 3306, 3306
+  # config.vm.forward_port "mysql"     , 3306 , 3306
+  # config.vm.forward_port "solr"      , 8983 , 8983
+  # config.vm.forward_port "solr_test" , 8984 , 8984
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
@@ -56,7 +57,10 @@ Vagrant::Config.run do |config|
   #
   config.vm.provision :chef_solo do |chef|
      chef.cookbooks_path = "cookbooks"
-     chef.add_recipe "mysql"
+     chef.add_recipe "general"
+     # chef.add_recipe "mysql"
+     # chef.add_recipe "solr"
+
   #
   #   # You may also specify custom JSON attributes:
   #   chef.json.merge!({ :mysql_password => "foo" })
