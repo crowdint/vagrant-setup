@@ -7,7 +7,9 @@ script "Update ubuntu packages" do
   interpreter "bash"
   user "root"
   code <<-EOH
-    apt-get update
+    if [ ! -e /etc/profile.d/vibash.sh ]; then
+			apt-get update
+		fi
   EOH
 end
 
