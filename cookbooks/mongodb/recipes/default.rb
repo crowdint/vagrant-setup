@@ -6,10 +6,17 @@ script "Install MongoDB" do
   code <<-EOH
     if [ ! -e /sbin/mongod ]; then
       cd /usr/local
-      wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-#{MONGODB_VERSION}.tgz
-      tar -zxf mongodb-linux-x86_64-#{MONGODB_VERSION}.tgz
-      mv mongodb-linux-x86_64-#{MONGODB_VERSION}/bin/mongod /sbin
-      rm -rf mongodb-linux-x86_64-#{MONGODB_VERSION}
+      
+      if $(uname -a | grep 'x86_64'); then
+        ARCH="x86_64"
+      else
+        ARCH="i686"
+      fi
+      
+      wget http://fastdl.mongodb.org/linux/mongodb-linux-$ARCH-#{MONGODB_VERSION}.tgz
+      tar -zxf mongodb-linux-$ARCH-#{MONGODB_VERSION}.tgz
+      mv mongodb-linux-$ARCH-#{MONGODB_VERSION}/bin/mongod /sbin
+      rm -rf mongodb-linux-$ARCH-#{MONGODB_VERSION}
     fi
   EOH
 end
