@@ -16,6 +16,7 @@ script "Install MongoDB" do
       wget http://fastdl.mongodb.org/linux/mongodb-linux-$ARCH-#{MONGODB_VERSION}.tgz
       tar -zxf mongodb-linux-$ARCH-#{MONGODB_VERSION}.tgz
       mv mongodb-linux-$ARCH-#{MONGODB_VERSION}/bin/mongod /sbin
+      mv mongodb-linux-x86_64-#{MONGODB_VERSION}/bin/mongo /bin
       rm -rf mongodb-linux-$ARCH-#{MONGODB_VERSION}
     fi
   EOH
