@@ -5,8 +5,6 @@ Supported systems: *Ubuntu Linux Lucid 64bits.*
 
 ## Postgres
 
-- db admin:  root:r00t
-- db user:   postgres:postgres
 - db host:   33.33.33.10
 
 ## Disclamer

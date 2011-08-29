@@ -17,7 +17,6 @@ script "Adding PostgreSQL paths" do
     if cat /etc/bash.bashrc | grep 'PGDATA' > /dev/null; then
       echo 'PostgreSQL paths ready in /etc/bash.bashrc'
     else
-      echo 'Adding PostgreSQL paths to /etc/bash.bashrc'
       echo '# PostgreSQL'                                   >> /etc/bash.bashrc;
       echo 'export PATH=$PATH:/usr/lib/postgresql/8.4/bin/' >> /etc/bash.bashrc;
       echo 'export PGDATA=/usr/local/pgsql/data'            >> /etc/bash.bashrc;
@@ -37,29 +36,26 @@ script "Setup PostgreSQL structure" do
   interpreter "bash"
   user "root"
   code <<-EOH
-    if [ ! -e /usr/local/pgsql/data/base ]; then
-      echo "Creating PostgreSQL data directory."
-      su postgres -p -c "initdb -D /usr/local/pgsql/data"
-    else
-      echo "PostgreSQL data-dir ready."
+    if [ ! -d /usr/local/pgsql/data/base ]; then
+      sudo -H -u postgres /usr/lib/postgresql/8.4/bin/initdb /usr/local/pgsql/data
     fi
   EOH
 end
 
 # Updating the configuration files
-template "/usr/local/pgsql/data/postgres.conf" do
-  source "postgres.conf"
+template "/usr/local/pgsql/data/postgresql.conf" do
+  source "postgresql.conf"
   action :create
-  owner "root"
-  group "root"
+  owner "postgres"
+  group "postgres"
   mode "644"
 end
 
 template "/usr/local/pgsql/data/pg_hba.conf" do
   source "pg_hba.conf"
   action :create
-  owner "root"
-  group "root"
+  owner "postgres"
+  group "postgres"
   mode "644"
 end
 
@@ -67,6 +63,11 @@ script "Start PostgreSQL server" do
   user "postgres"
   interpreter "bash"
   code <<-EOH
-    nohup postgres &
+    /usr/lib/postgresql/8.4/bin/postgres -D /usr/local/pgsql/data
   EOH
 end
+
+# Running PostgreSQL
+#nohup postgres &
+#/usr/lib/postgresql/8.4/bin/postgres -D /usr/local/pgsql/data
+#/usr/lib/postgresql/8.4/bin/pg_ctl -D /usr/local/pgsql/data -l logfile start
