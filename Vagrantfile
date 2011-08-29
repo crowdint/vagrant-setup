@@ -1,7 +1,6 @@
 Vagrant::Config.run do |config|
   config.vm.box = "lucid64"
-  config.vm.box_url = "lucid64.box"
-  #config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
+  config.vm.box_url = "http://files.vagrantup.com/lucid64.box"
   config.vm.network "33.33.33.10"
 
   config.vm.provision :chef_solo do |chef|

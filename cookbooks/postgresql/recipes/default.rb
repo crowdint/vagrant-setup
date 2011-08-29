@@ -63,11 +63,6 @@ script "Start PostgreSQL server" do
   user "postgres"
   interpreter "bash"
   code <<-EOH
-    /usr/lib/postgresql/8.4/bin/postgres -D /usr/local/pgsql/data
+    nohup postgres &
   EOH
 end
-
-# Running PostgreSQL
-#nohup postgres &
-#/usr/lib/postgresql/8.4/bin/postgres -D /usr/local/pgsql/data
-#/usr/lib/postgresql/8.4/bin/pg_ctl -D /usr/local/pgsql/data -l logfile start
