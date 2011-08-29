@@ -3,14 +3,6 @@
 # Recipe:: default
 #
 
-script "Updating apt-get" do
-  interpreter "bash"
-  user "root"
-  code <<-EOH
-    apt-get update
-  EOH
-end
-
 # Install postgres 8.4, and the comunity extras
 %w{ postgresql postgresql-contrib }.each do | name |
   package name do
