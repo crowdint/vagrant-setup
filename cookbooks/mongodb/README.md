@@ -6,8 +6,8 @@ Supported systems: *Ubuntu Linux Lucid 64bits.*
 ## Connect
 
 - host: 33.33.33.10
-- port1: 27017
-- port2: 28017
+- port: 27017 (db)
+- port: 28017 (web admin)
 
 ## Warning
 
