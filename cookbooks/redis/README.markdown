@@ -1,6 +1,6 @@
-# PostgreSQL recipe
+# Redis recipe
 
-This cookbook will serve as a starting point for a PostgreSQL 8.4.8 installation
+This cookbook will serve as a starting point for a Redis 2:1.2.0-1 installation
 Supported systems: *Ubuntu Linux Lucid 64bits.*
 
 ## Connect
