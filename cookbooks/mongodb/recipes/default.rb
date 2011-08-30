@@ -12,18 +12,19 @@ script "Install MongoDB" do
   code <<-EOH
 
     if cat #{README} | grep 'host' > /dev/null; then
-      echo 'MongoDB ready, #{README}.'
+      echo 'MongoDB ready, see more at #{README}.'
     else
       cd /usr/local;
-      curl #{DOWNLOAD} | tar -zxf;
+      wget -O mongo.tgz #{DOWNLOAD};
+      tar -zxf mongo.tgz;
       mv ./mongo* ./mongo;
       mv ./mongo/bin/mongod /sbin;
       mv ./mongo/bin/mongo /bin;
-      rm -rf ./mongo;
+      rm -rf ./mongo*;
 
-      echo '- host: 33.33.33.10'  >> #{README}
-      echo '- port: 27017'        >> #{README}
-      echo '- port: 28017'        >> #{README}
+      echo '- host: 33.33.33.10'   >> #{README}
+      echo '- port1: 27017'        >> #{README}
+      echo '- port2: 28017'        >> #{README}
     fi
   EOH
 end
