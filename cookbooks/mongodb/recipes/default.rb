@@ -1,23 +1,29 @@
-MONGODB_VERSION="1.8.3"
+#
+# Cookbook Name:: mongod
+# Recipe:: default
+#
+
+DOWNLOAD="http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-1.8.3.tgz"
+README='/home/vagrant/mongod-readme.txt'
 
 script "Install MongoDB" do
   user "root"
   interpreter "bash"
   code <<-EOH
-    if [ ! -e /sbin/mongod ]; then
-      cd /usr/local
-      
-      if $(uname -a | grep 'x86_64'); then
-        ARCH="x86_64"
-      else
-        ARCH="i686"
-      fi
-      
-      wget http://fastdl.mongodb.org/linux/mongodb-linux-$ARCH-#{MONGODB_VERSION}.tgz
-      tar -zxf mongodb-linux-$ARCH-#{MONGODB_VERSION}.tgz
-      mv mongodb-linux-$ARCH-#{MONGODB_VERSION}/bin/mongod /sbin
-      mv mongodb-linux-x86_64-#{MONGODB_VERSION}/bin/mongo /bin
-      rm -rf mongodb-linux-$ARCH-#{MONGODB_VERSION}
+
+    if cat #{README} | grep 'host' > /dev/null; then
+      echo 'MongoDB ready, #{README}.'
+    else
+      cd /usr/local;
+      curl #{DOWNLOAD} | tar -zxf;
+      mv ./mongo* ./mongo;
+      mv ./mongo/bin/mongod /sbin;
+      mv ./mongo/bin/mongo /bin;
+      rm -rf ./mongo;
+
+      echo '- host: 33.33.33.10'  >> #{README}
+      echo '- port: 27017'        >> #{README}
+      echo '- port: 28017'        >> #{README}
     fi
   EOH
 end

@@ -25,6 +25,7 @@ script "Fixing the 'Please check that your locale settings' error" do
       echo 'export LANGUAGE=en_US.UTF-8'      >> /etc/bash.bashrc;
       echo 'export LANG=en_US.UTF-8'          >> /etc/bash.bashrc;
       echo 'export LC_ALL=en_US.UTF-8'        >> /etc/bash.bashrc;
+
       locale-gen en_US.UTF-8
       dpkg-reconfigure locales
     fi
