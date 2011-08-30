@@ -5,7 +5,7 @@ Supported systems: *Ubuntu Linux Lucid 64bits.*
 
 ## Postgres
 
-- db user: postgres (without password)
+- db user: postgres:p0stgres
 - db host: 33.33.33.10
 - db port: 5432
 

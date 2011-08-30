@@ -3,6 +3,10 @@
 # Recipe:: default
 #
 
+CONFIG='/etc/postgresql/8.4/main'
+DATA='/var/lib/postgresql/8.4/main'
+README='/home/vagrant/postgresql-readme.txt'
+
 # Install postgres 8.4, and the comunity extras
 %w{ postgresql postgresql-contrib }.each do | name |
   package name do
@@ -10,40 +14,8 @@
   end
 end
 
-script "Adding PostgreSQL paths" do
-  interpreter "bash"
-  user "root"
-  code <<-EOH
-    if cat /etc/bash.bashrc | grep 'PGDATA' > /dev/null; then
-      echo 'PostgreSQL paths ready in /etc/bash.bashrc'
-    else
-      echo '# PostgreSQL'                                   >> /etc/bash.bashrc;
-      echo 'export PATH=$PATH:/usr/lib/postgresql/8.4/bin/' >> /etc/bash.bashrc;
-      echo 'export PGDATA=/usr/local/pgsql/data'            >> /etc/bash.bashrc;
-    fi
-  EOH
-end
-
-# Setup PostgreSQL dir
-directory "/usr/local/pgsql/data" do
-  owner "postgres"
-  group "postgres"
-  mode 0755
-  recursive true
-end
-
-script "Setup PostgreSQL structure" do
-  interpreter "bash"
-  user "root"
-  code <<-EOH
-    if [ ! -d /usr/local/pgsql/data/base ]; then
-      sudo -H -u postgres /usr/lib/postgresql/8.4/bin/initdb /usr/local/pgsql/data
-    fi
-  EOH
-end
-
 # Updating the configuration files
-template "/usr/local/pgsql/data/postgresql.conf" do
+template "#{CONFIG}/postgresql.conf" do
   source "postgresql.conf"
   action :create
   owner "postgres"
@@ -51,7 +23,7 @@ template "/usr/local/pgsql/data/postgresql.conf" do
   mode "644"
 end
 
-template "/usr/local/pgsql/data/pg_hba.conf" do
+template "#{CONFIG}/pg_hba.conf" do
   source "pg_hba.conf"
   action :create
   owner "postgres"
@@ -59,10 +31,21 @@ template "/usr/local/pgsql/data/pg_hba.conf" do
   mode "644"
 end
 
-script "Start PostgreSQL server" do
-  user "postgres"
+script "Setup PostgreSQL" do
   interpreter "bash"
+  user "root"
   code <<-EOH
-    nohup postgres &
+    if cat #{README} | grep 'db user' > /dev/null; then
+      echo 'PostgreSQL users are ready at #{README}.'
+    else
+      service postgresql-8.4 restart
+      sudo -H -u postgres psql -c "ALTER USER postgres WITH ENCRYPTED PASSWORD 'p0stgres'"
+
+      echo '- db host: 33.33.33.10'       >> #{README}
+      echo '- db port: 5432'              >> #{README}
+      echo '- db user: postgres:p0stgres' >> #{README}
+      echo 'Config: #{CONFIG}'            >> #{README}
+      echo 'Data: #{DATA}'                >> #{README}
+    fi
   EOH
 end
