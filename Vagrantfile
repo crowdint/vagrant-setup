@@ -15,8 +15,8 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
      chef.cookbooks_path = "cookbooks"
 
-     chef.add_recipe "general"
-
+     chef.add_recipe "system"
+     chef.add_recipe "system::utils"
      # chef.add_recipe "mongodb"
      # chef.add_recipe "mysql"
      # chef.add_recipe "postgresql"
