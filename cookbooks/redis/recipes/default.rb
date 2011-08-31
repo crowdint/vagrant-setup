@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 
+CONFIG='/etc/redis'
 README='/home/vagrant/redis-readme.txt'
 
 # Install redis-server
@@ -10,6 +11,15 @@ README='/home/vagrant/redis-readme.txt'
   package name do
     action :install
   end
+end
+
+# Updating the configuration files
+template "#{CONFIG}/redis.conf" do
+  source "redis.conf"
+  action :create
+  owner "root"
+  group "root"
+  mode "644"
 end
 
 script "Setup Redis" do
