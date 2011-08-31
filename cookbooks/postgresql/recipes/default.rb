@@ -31,6 +31,14 @@ template "#{CONFIG}/pg_hba.conf" do
   mode "644"
 end
 
+template "/var/lib/postgresql/fix-locales.sql" do
+  source "fix-locales.sql"
+  action :create
+  owner "postgres"
+  group "postgres"
+  mode "644"
+end
+
 script "Setup PostgreSQL" do
   interpreter "bash"
   user "root"
@@ -48,4 +56,10 @@ script "Setup PostgreSQL" do
       echo 'Data: #{DATA}'                >> #{README}
     fi
   EOH
+end
+
+script "Fix locales" do
+  interpreter "bash"
+  user "postgres"
+  code "psql -f /var/lib/postgresql/fix-locales.sql"
 end
