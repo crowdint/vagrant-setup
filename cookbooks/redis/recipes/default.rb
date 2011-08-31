@@ -29,6 +29,7 @@ script "Setup Redis" do
     if cat #{README} | grep 'host' > /dev/null; then
       echo 'Redis users are ready at #{README}.'
     else
+      service postgresql-8.4 restart;
       echo '- host: 33.33.33.10'       >> #{README}
       echo '- port: 6379'              >> #{README}
     fi
