@@ -40,6 +40,6 @@ script "Start the MongoDB service" do
   user "root"
   interpreter "bash"
   code <<-EOH
-    nohup /sbin/mongod >> /var/log/mongodb.log &
+    nohup mongod >> ~/mongodb.log &
   EOH
 end
