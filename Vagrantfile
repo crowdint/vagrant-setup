@@ -5,14 +5,14 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo do |chef|
      chef.cookbooks_path = "cookbooks"
-     chef.recipe_url = "http://files.vagrantup.com/getting_started/cookbooks.tar.gz"
+     chef.recipe_url = "http://https://github.com/crowdint/vagrant-setup/downloads/cookbooks.tar.gz"
 
      chef.add_recipe "general"
-     # chef.add_recipe "general::utils"
+     chef.add_recipe "general::utils"
      # chef.add_recipe "mongodb"
      # chef.add_recipe "mysql"
      # chef.add_recipe "postgresql"
-     chef.add_recipe "redis"
+     # chef.add_recipe "redis"
      # chef.add_recipe "solr"
   end
 
