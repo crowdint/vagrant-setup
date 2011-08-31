@@ -7,7 +7,3 @@ profile or some UNIX packages like htop.
 
 *Disclaimer:* This recipe should never be used on production environments as
 it's insecure on purpose.
-
-## About
-
-[CrowdInteractive](http://crowdint.com)
