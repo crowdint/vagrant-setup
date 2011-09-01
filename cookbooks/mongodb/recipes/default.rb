@@ -5,6 +5,8 @@
 
 DOWNLOAD="http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-1.8.3.tgz"
 README='/home/vagrant/mongod-readme.txt'
+CONFIG='/etc/mongodb.conf'
+DATA='/data/db'
 
 script "Install MongoDB" do
   user "root"
@@ -12,7 +14,7 @@ script "Install MongoDB" do
   code <<-EOH
 
     if cat #{README} | grep 'host' > /dev/null; then
-      echo 'MongoDB ready, see more at #{README}.'
+      echo 'MongoDB ready, config at #{CONFIG}.'
     else
       wget -O mongo.tgz #{DOWNLOAD};
       tar -zxf mongo.tgz;
@@ -28,7 +30,31 @@ script "Install MongoDB" do
   EOH
 end
 
-directory '/data/db' do
+template "#{CONFIG}" do
+  source "mongodb.conf"
+  action :create
+  owner "root"
+  group "root"
+  mode "644"
+end
+
+directory "/var/log/mongodb" do
+  owner "root"
+  group "root"
+  mode 0755
+  action :create
+  recursive true
+end
+
+template "/var/log/mongodb/mongod.log" do
+  source "mongod.log"
+  action :create
+  owner "syslog"
+  group "adm"
+  mode "660"
+end
+
+directory "#{DATA}" do
   owner "root"
   group "root"
   mode 0755
@@ -40,6 +66,8 @@ script "Start the MongoDB service" do
   user "root"
   interpreter "bash"
   code <<-EOH
-    nohup mongod >> ~/mongodb.log &
+    mongod --config #{CONFIG} &
   EOH
 end
+
+# TODO, change this to sudo service mongodb restart
