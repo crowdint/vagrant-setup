@@ -20,6 +20,8 @@ script "Install MongoDB" do
       tar -zxf mongo.tgz;
       mv ./mongodb* ./mongo;
       mv ./mongo/bin/mongod /usr/local/sbin;
+      mv ./mongo/bin/mongodump /usr/local/sbin;
+      mv ./mongo/bin/mongorestore /usr/local/sbin;
       mv ./mongo/bin/mongo /usr/local/bin;
       rm -rf ./mongo*;
 
