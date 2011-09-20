@@ -4,9 +4,7 @@ Vagrant::Config.run do |config|
   config.vm.network "33.33.33.10"
 
   config.vm.provision :chef_solo do |chef|
-     # chef.recipe_url = "https://github.com/crowdint/vagrant-setup/blob/master/downloads/cookbooks.tar.gz"
-     chef.cookbooks_path = "cookbooks"
-
+     chef.recipe_url = "https://github.com/crowdint/vagrant-setup/raw/master/downloads/cookbooks.tar.gz"
      chef.add_recipe "general"
      chef.add_recipe "general::utils"
      # chef.add_recipe "mongodb"
