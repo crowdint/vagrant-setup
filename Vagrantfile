@@ -8,11 +8,11 @@ Vagrant::Config.run do |config|
      chef.cookbooks_path = "cookbooks"
      chef.add_recipe "general"
      chef.add_recipe "general::utils"
-     # chef.add_recipe "mongodb"
-     # chef.add_recipe "mysql"
-     # chef.add_recipe "postgresql"
-     # chef.add_recipe "redis"
-     # chef.add_recipe "solr"
+     chef.add_recipe "mongodb"
+     chef.add_recipe "mysql"
+     chef.add_recipe "postgresql"
+     chef.add_recipe "redis"
+     chef.add_recipe "solr"
   end
 
   config.vm.customize do |vm|
