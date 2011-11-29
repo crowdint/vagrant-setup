@@ -5,7 +5,9 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo do |chef|
      chef.cookbooks_path = "cookbooks"
-     chef.recipe_url = "https://github.com/crowdint/vagrant-setup/raw/master/downloads/cookbooks.tar.gz"
+     # Seems like chef.recipe_url isn't working in this vagrant version, run this instead (just once):
+     #    curl -0 https://raw.github.com/crowdint/vagrant-setup/master/downloads/cookbooks.tar.gz | tar -xz
+     # chef.recipe_url = "https://github.com/crowdint/vagrant-setup/raw/master/downloads/cookbooks.tar.gz"
      chef.add_recipe("general")
      chef.add_recipe("general::utils")
      chef.add_recipe("mongodb")
@@ -15,7 +17,7 @@ Vagrant::Config.run do |config|
      #chef.add_recipe("solr")
   end
 
-  config.vm.customize do |vm|
-    vm.memory_size = 1024
-  end
+  #config.vm.customize do |vm|
+  #  vm.memory_size = 1024
+  #end
 end
