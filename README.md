@@ -10,15 +10,33 @@ to setup new development environments at [Crowd Interactive](http://www.crowdint
 
 - You need *VirtualBox >4.1.2* installed. Download it from
 [Virtualbox site](http://www.virtualbox.org/wiki/Downloads).
+Please include the Extension Pack as well.
 
 ### Run
 
+Download the cookbooks & recipes for MySQL and MongoDB and Utils:
+
 ```bash
-    cp Vagrantfile.example Vagrantfile;
-    gem install vagrant
-    vagrant up
+    curl -0 https://raw.github.com/crowdint/vagrant-setup/master/downloads/cookbooks.tar.gz | tar -xz
 ```
 
+Install vagrant and the virtual machine:
+
+```bash
+    gem install vagrant;
+   vagrant up;
+```
+
+* Note that you must suspend (or halt) your vagrant before turning off your computer. Otherwise it will be aborted (like manual power off). 
+
+Another vagrant commands:
+
+```bash
+    vagrant help;     	# show commands help
+    vagrant status; 	# current status
+    vagrant suspend; 	# sleep mode
+    vagrant ssh;		# ssh session
+```
 
 This will start a new virtual machine from a ubuntu lucid 64bits system
 template. After that it will install all the services indicated, using chef
