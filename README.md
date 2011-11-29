@@ -17,14 +17,14 @@ Please include the Extension Pack as well.
 Download the cookbooks & recipes for MySQL and MongoDB and Utils:
 
 ```bash
-    curl -0 https://raw.github.com/crowdint/vagrant-setup/master/downloads/cookbooks.tar.gz | tar -xz
+curl -0 https://raw.github.com/crowdint/vagrant-setup/master/downloads/cookbooks.tar.gz | tar -xz
 ```
 
 Install vagrant and the virtual machine:
 
 ```bash
-    gem install vagrant;
-   vagrant up;
+gem install vagrant;
+vagrant up;
 ```
 
 * Note that you must suspend (or halt) your vagrant before turning off your computer. Otherwise it will be aborted (like manual power off). 
@@ -32,10 +32,10 @@ Install vagrant and the virtual machine:
 Another vagrant commands:
 
 ```bash
-    vagrant help;     	# show commands help
-    vagrant status; 	# current status
-    vagrant suspend; 	# sleep mode
-    vagrant ssh;		# ssh session
+vagrant help;     	# show commands help
+vagrant status; 	# current status
+vagrant suspend; 	# sleep mode
+vagrant ssh;		# ssh session
 ```
 
 This will start a new virtual machine from a ubuntu lucid 64bits system
