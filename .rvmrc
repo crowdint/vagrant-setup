@@ -1,1 +1,1 @@
-rvm 1.9.2@vagrants --create
+rvm 1.9.2@vagrant-setup --create
