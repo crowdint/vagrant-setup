@@ -14,7 +14,7 @@ Please include the Extension Pack as well.
 
 ### Run
 
-Download the cookbooks & recipes for MySQL and MongoDB and Utils:
+Download the cookbook with the recipes for all the servers and utilities:
 
 ```bash
 curl -0 https://raw.github.com/crowdint/vagrant-setup/master/downloads/cookbooks.tar.gz | tar -xz
@@ -41,10 +41,6 @@ vagrant ssh;		# ssh session
 This will start a new virtual machine from a ubuntu lucid 64bits system
 template. After that it will install all the services indicated, using chef
 recipes (Including postgres, mongo and redis...).
-
-- *Important* if you're going to restart your computer, please stop the
-vagrant execution using `vagrant suspend`.
-- To start a ssh session with your virtual run: `vagrant ssh`.
 
 ### Warning
 
