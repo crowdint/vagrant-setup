@@ -2,7 +2,7 @@
 # Cookbook Name:: general
 # Recipe:: default
 #
-#
+
 script "Update ubuntu packages" do
   interpreter "bash"
   user "root"
